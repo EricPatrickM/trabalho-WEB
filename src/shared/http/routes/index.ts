@@ -3,6 +3,6 @@ import { Router } from "express";
 
 const routes = Router();
 
-routes.get('/publish', publishRouter)
+routes.use('/publish', publishRouter)
 
 export default routes;

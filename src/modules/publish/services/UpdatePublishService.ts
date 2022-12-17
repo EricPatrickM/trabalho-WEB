@@ -22,12 +22,11 @@ export default class UpdatePublishService{
             throw new AppError('POST NAO EXISTE', 400)
         }
         try{
-
             publish.tag = tag;
             publish.title = title;
             publish.content = content;
             publish.actor = actor;
-            publish.available = available;
+            publish.available = available
             //publish.updated_at= new Date()
             await publishRep.save(publish)
             return publish

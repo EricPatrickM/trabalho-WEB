@@ -10,7 +10,7 @@ export class CreatePublish1671239600346 implements MigrationInterface {
                     {name:'id', type:'uuid', isPrimary:true, generationStrategy:'uuid', default:'uuid_generate_v4()'},
                     {name:'tag', type:'varchar'},
                     {name:'preview', type:'varchar', length:'100'},
-                    {name:'views', type:'int'},
+                    {name:'views', type:'int', default:'0'},
                     {name:'title', type:'varchar'},
                     {name:'content', type:'varchar'},
                     {name:'actor', type:'varchar'},

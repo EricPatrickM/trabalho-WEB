@@ -4,10 +4,13 @@ import publishRepository from "../typeorm/repositories/publishRepository";
 
 
 export default class ListPublishService{
-    public async execute():Promise<publish[] | undefined>{
+    public async execute():Promise<publish[]>{
         const publishRepo = getCustomRepository(publishRepository);
 
-        const publishes = await publishRepo.find()
+        const publishes = await publishRepo.find({
+            where:{available:"true"},
+            select:['id', 'tag', 'preview', 'views', 'title','actor','created_at', 'updated_at']
+        })
 
         return publishes;
     }

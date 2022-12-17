@@ -10,12 +10,15 @@ interface IRequest{
 export default class ShowPublishService{
     public async execute({id}:IRequest): Promise<publish | undefined>{
         const publishRep = getCustomRepository(publishRepository)
-
         const publish = await publishRep.findOne(id);
-        if(!publish){
+        
+        if(!publish || publish.available == false){
             throw new AppError('POST NOT FOUND!')
         }
+
         publish.views+=1;
+        publishRep.save(publish)
+
         return publish
     }
 }
