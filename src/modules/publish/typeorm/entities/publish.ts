@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import Customer from "../../../customer/typeorm/entities/Customer";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity('publishes')
-export default class publish{
+export default class Publish{
     @PrimaryGeneratedColumn('uuid')
     id:string;
 
@@ -21,14 +22,15 @@ export default class publish{
     content:string;
 
     @Column()
-    actor:string;
-
-    @Column()
     available:boolean;
 
     @CreateDateColumn()
     created_at: Date;
     
-    @CreateDateColumn()
+    @UpdateDateColumn()
     updated_at: Date;
+
+    @ManyToOne(()=>Customer, customer => customer.publishes)
+    @JoinColumn({name:'customer_id'})
+    customer:Customer
 }

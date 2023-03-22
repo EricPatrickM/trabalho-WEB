@@ -10,12 +10,11 @@ customersRouter.use(isAuthenticadted);//todas autenticadas
 
 customersRouter.get('/', customersController.index);
 
-customersRouter.get(
-  '/:id',
-  celebrate({
-    [Segments.PARAMS]: {id: Joi.string().uuid().required()}
-  }),
-  customersController.show);
+customersRouter.get('/:id',
+celebrate({
+  [Segments.PARAMS]: {id: Joi.string().uuid().required()}
+})
+,customersController.show);
 
 customersRouter.post('/',
 celebrate({
@@ -29,13 +28,13 @@ celebrate({
   [Segments.BODY] : { name: Joi.string().required(),
     email: Joi.string().required()},
   [Segments.PARAMS]: {id: Joi.string().uuid().required(),}
-}),
-customersController.update);
+})
+,customersController.update);
 
 customersRouter.delete('/:id',
 celebrate({
   [Segments.PARAMS]: {id: Joi.string().uuid().required()}
-}),
-customersController.delete);
+})
+,customersController.delete);
 
 export default customersRouter;

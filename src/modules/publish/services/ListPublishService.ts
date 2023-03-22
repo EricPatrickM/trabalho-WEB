@@ -9,7 +9,7 @@ export default class ListPublishService{
 
         const publishes = await publishRepo.find({
             where:{available:"true"},
-            select:['id', 'tag', 'preview', 'views', 'title','actor','created_at', 'updated_at']
+            select:['id', 'tag', 'preview', 'views', 'title','created_at', 'updated_at', 'customer', 'content']
         })
 
         return publishes;

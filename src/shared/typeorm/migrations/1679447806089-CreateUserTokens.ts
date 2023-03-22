@@ -1,6 +1,6 @@
 import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class CreateUserTokens1676914186079 implements MigrationInterface {
+export class CreateUserTokens1679447806089 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
@@ -51,6 +51,6 @@ export class CreateUserTokens1676914186079 implements MigrationInterface {
   
       public async down(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.dropTable('user_tokens');
-      }  
+      }
 
 }

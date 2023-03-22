@@ -5,6 +5,10 @@ import ShowPublishService from "../services/ShowPublishService";
 import UpdatePublishService from "../services/UpdatePublishService";
 import DeletePublishService from "../services/DeletePublishService";
 
+import authConfig from "@config/auth";
+import { verify } from "jsonwebtoken";
+import AppError from "@shared/errors/AppError";
+
 export default class publishController{
     public async show(req:Request, res:Response):Promise<Response>{
         const {id} = req.params;
@@ -20,9 +24,18 @@ export default class publishController{
     }
 
     public async create(req:Request, res:Response):Promise<Response>{
-        const {tag, title, content, actor, available} = req.body;
+        const authHeader = req.headers.authorization;
+        if(!authHeader){
+            throw new AppError('JWT Token is missing.');
+        }
+        
+        const [type, token] = authHeader.split(' ');
+        const customer = verify(token, authConfig.jwt.secret);
+        const customer_id = customer.sub;
+        const {tag, title, content, available} = req.body;
+
         const publish = new CreatePublishService()
-        const publishes = await publish.execute({tag, title, content, actor, available})
+        const publishes = await publish.execute({tag, title, content, available}, customer_id)
         return res.json(publishes)
     }
 
